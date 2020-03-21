@@ -1,6 +1,7 @@
 //----Mag code-----
 //--x=i,y=j,z=k---------
 ////---X[i][j][k][field][time]---
+// This is a code to minimise the energy of a magnetic Skyrmion (gradient flow) in 2D
 #include <math.h>
 #include <iostream>
 #include <fstream>
@@ -16,22 +17,22 @@ const int t_max=16000;
 const int No_field=3;
 double E=0.0,KK=0.0,V=0.0;
 const int NOTHREADS=6;
-double X[n_max][n_max][3][3];
+double X[n_max][n_max][3][3];                          // Skyrmion field (magentic field)
 double Y[n_max][n_max][3][3];
 double points[6][2];
 const double PI = 2.0*acos(0);
 double energy=0.0,filenumber=0.0;
 double dtdt=0.0,dtdty=0.0,dtpdtpy=0.0,d2pd2p=0.0,d1pd1p=0.0,d2yd2y=0.0,d1yd1y=0.0,dtpdtp=0.0,lambday =0.0,lambda =0.0,d22pd2p=0.0;
 
-double d1p(int i,int j, int f, int t);
-double d2p(int i,int j, int f, int t);
-double d11p(int i,int j, int f, int t);
-double d22p(int i,int j, int f, int t);
+double d1p(int i,int j, int f, int t);                 //Finite difference interfaces 
+double d2p(int i,int j, int f, int t);                 //
+double d11p(int i,int j, int f, int t);                //
+double d22p(int i,int j, int f, int t);                //
 
-double d1y(int i,int j, int f, int t);
-double d2y(int i,int j, int f, int t);
-double d11y(int i,int j, int f, int t);
-double d22y(int i,int j, int f, int t);
+double d1y(int i,int j, int f, int t);                 //
+double d2y(int i,int j, int f, int t);                 //
+double d11y(int i,int j, int f, int t);                //
+double d22y(int i,int j, int f, int t);                //
 double X1=0.0,X2=0.0,X3=0.0,Y1=0.0,Y2=0.0,Y3=0.0;
 double X11=0.0,X22=0.0,X33=0.0,Y11=0.0,Y22=0.0,Y33=0.0;
 double F(double r);
@@ -74,7 +75,7 @@ ReadMe.open("Read-Me");
 Hopfenergy.open("Hopfenergy");
  complex<double> I(0,1.0);
  //--Set fields to zero
-for(int i =0; i < n_max; ++i)
+for(int i =0; i < n_max; ++i)      // Init magentic field
   {
  for( int j = 0; j < n_max; ++j)
    {
